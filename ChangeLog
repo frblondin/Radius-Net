@@ -1,3 +1,6 @@
+2016-05-13 Tomap
+	See readme
+
 2010-02-24  Cyrille Colin  <colin@univ-metz.fr>
 
 	* src/RadiusUtils.cs: patch that fixes up encodePapPassword to

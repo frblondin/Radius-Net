@@ -84,7 +84,6 @@
   <ItemGroup>
     <None Include="radius.snk" />
     <None Include="tools\radiusauth.cs" />
-    <None Include="ChangeLog" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
