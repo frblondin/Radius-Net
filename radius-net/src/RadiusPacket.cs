@@ -117,6 +117,13 @@ namespace System.Net.Radius {
 			return result;
 		}
 
+        public byte[] BinaryValue {
+            get
+            {
+                return data;
+            }
+        }
+
 		public string Value {
 			get { 
 				switch (type) {

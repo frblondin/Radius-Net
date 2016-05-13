@@ -26,18 +26,29 @@ namespace System.Net.Radius {
 		
 		public new byte[] Receive (ref IPEndPoint remoteEP) {
 
-			base.Client.Poll (this.socketTimeout*1000, SelectMode.SelectRead);
+            //base.Client.Poll(this.socketTimeout*1000 , SelectMode.SelectRead);
+            base.Client.Poll(this.socketTimeout * 1000, SelectMode.SelectRead); //Mod by Zhuoming
 			base.Client.SetSocketOption (SocketOptionLevel.Socket, SocketOptionName.ReceiveTimeout, this.socketTimeout);
 	
-			byte [] recBuffer;
+            int dataRead = 0;
+            byte[] data = null;
 			
 			int available = base.Client.Available;
-			recBuffer = new byte [available];
+
 			
 			EndPoint endPoint = new IPEndPoint (IPAddress.Any, 0);
-			int dataRead = base.Client.ReceiveFrom (recBuffer, ref endPoint);
-			byte[] data = new byte[dataRead];
+            if (available > 0)
+            {
+                byte[] recBuffer;
+                recBuffer = new byte[available];			
+                dataRead = base.Client.ReceiveFrom(recBuffer, ref endPoint);
+
+                if (dataRead > 0)
+                {
+                    data = new byte[dataRead];
 			Array.Copy(recBuffer,0,data,0,dataRead);
+                }
+            }
 			remoteEP = (IPEndPoint) endPoint;
 			
 			return data;

@@ -54,26 +54,22 @@ namespace System.Net.Radius {
 			return SendAndReceivePacket(packet,AUTH_RETRIES);
 		}
 		public RadiusPacket SendAndReceivePacket(RadiusPacket packet,int retries) {
-			IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
-			RadiusUdpClient udpClient = new RadiusUdpClient();
-			udpClient.SetTimeout(this.socketTimeout);
+			IPEndPoint RemoteIpEndPoint = null;
 			for(int x=0; x< retries;x++) {
-				try{
-						try {
+                var dt = DateTime.UtcNow;
+				using (RadiusUdpClient udpClient = new RadiusUdpClient())
+                {
 							udpClient.Connect(this.hostName,this.authPort);
-						} catch (Exception e) {
-              udpClient = new RadiusUdpClient();
-              udpClient.Connect(this.hostName, this.authPort);
-						}
-					udpClient.Send(packet.GetBytes(),packet.GetBytes().Length);
+                    udpClient.SetTimeout(this.socketTimeout); //Add by Zhuoming
+                    Byte[] packetBinary = packet.GetBytes();
+                    udpClient.Send(packetBinary, packetBinary.Length);
 					Byte[] receiveBytes = udpClient.Receive(ref RemoteIpEndPoint);
+                    if (receiveBytes != null)
+                    {
 					RadiusPacket receivedPacket = new RadiusPacket(receiveBytes,this.sharedSecret,packet.Authenticator);
 					if(VerifyPacket(packet,receivedPacket))
 						 return receivedPacket;
-					udpClient.Close();
-				}catch (Exception e){
-					if(udpClient!=null)udpClient.Close();
-					Console.WriteLine(e.Message);
+                    }				 
 				}
 			}
 			return null;
