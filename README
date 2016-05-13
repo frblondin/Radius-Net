@@ -1,0 +1,6 @@
+radius-net
+-----------
+
+./configure
+make
+make install

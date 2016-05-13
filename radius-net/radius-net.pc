@@ -1,0 +1,6 @@
+Name: radius-net
+Description: radius-net
+Version: 0.1
+
+Requires: 
+Libs: -r:/usr/local/lib/radius-net/radius-net.dll

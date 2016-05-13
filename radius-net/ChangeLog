@@ -1,0 +1,18 @@
+2010-02-24  Cyrille Colin  <colin@univ-metz.fr>
+
+	* src/RadiusUtils.cs: patch that fixes up encodePapPassword to
+	process > 16 byte
+	passwords thanks to Eugene Lubarsky.
+
+2010-02-24  Cyrille Colin  <colin@univ-metz.fr>
+
+		* First import : in google svn.
+
+2009-09-14	Cyrille Colin	 <colin@univ-metz.fr>
+
+        * Fix UdpClient was disposed : Patch by Gerard Jager.
+
+2006-01-05  Cyrille Colin  <colin@univ-metz.fr>
+
+        * Fix NasPortType and adding attributes to packets : Many changes have been done, some functions are
+		not compatible with previous version.
