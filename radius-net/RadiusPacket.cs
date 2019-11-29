@@ -27,7 +27,7 @@ namespace System.Net.Radius {
 		public RadiusPacket (RadiusPacketType packetType,string sharedsecret) {
 			this.packetType = packetType;
 			this.identifier = (int)(Guid.NewGuid().ToByteArray())[0];
-			this.authenticator = Utils.makeRFC2865RequestAuthenticator(sharedsecret);
+			this.authenticator = Utils.MakeRFC2865RequestAuthenticator(sharedsecret);
 		}
 		// used to format received data
 		public RadiusPacket (byte[] receivedData,string sharedsecret,byte[] requestAuthenticator)  {
