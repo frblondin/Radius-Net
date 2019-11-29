@@ -55,8 +55,7 @@ stages:
           reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
 
       - script: |
-          dotnet pack src\Graphviz4Net.Core --no-build --include-symbols --include-source --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)
-          dotnet pack src\Graphviz4Net.WPF --no-build --include-symbols --include-source --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)
+          dotnet pack radius-net --no-build --include-symbols --include-source --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)
         displayName: Generate NuGet Packages
 
       - task: PublishBuildArtifacts@1
