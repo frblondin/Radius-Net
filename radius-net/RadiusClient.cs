@@ -43,7 +43,7 @@ namespace System.Net.Radius
         public RadiusPacket Authenticate(string username, string password)
         {
             RadiusPacket packet = new RadiusPacket(RadiusPacketType.ACCESS_REQUEST, this.sharedSecret);
-            byte[] encryptedPass = Utils.encodePapPassword(Encoding.ASCII.GetBytes(password), packet.Authenticator, this.sharedSecret);
+            byte[] encryptedPass = Utils.EncodePapPassword(Encoding.ASCII.GetBytes(password), packet.Authenticator, this.sharedSecret);
             packet.SetAttributes(RadiusAttributeType.USER_NAME, Encoding.ASCII.GetBytes(username));
             packet.SetAttributes(RadiusAttributeType.USER_PASSWORD, encryptedPass);
             return packet;
@@ -78,7 +78,7 @@ namespace System.Net.Radius
         private bool VerifyPacket(RadiusPacket requestedPacket, RadiusPacket receivedPacket)
         {
             if (requestedPacket.Identifier != receivedPacket.Identifier) return false;
-            if (requestedPacket.Authenticator.ToString() != Utils.makeRFC2865ResponseAuthenticator(receivedPacket.RawData, requestedPacket.Authenticator, sharedSecret).ToString()) return false;
+            if (requestedPacket.Authenticator.ToString() != Utils.MakeRFC2865ResponseAuthenticator(receivedPacket.RawData, requestedPacket.Authenticator, sharedSecret).ToString()) return false;
             return true;
         }
         public int SocketTimeout
